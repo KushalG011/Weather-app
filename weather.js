@@ -1,10 +1,7 @@
 /* JS comes here */
 const output = document.getElementById("inp");
 function runSpeechRecognition() {
-  // get output div reference
-  //   var output = document.getElementById("output");
-  // get action element reference
-  // new speech recognition object
+
   var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
   var recognition = new SpeechRecognition();
 
