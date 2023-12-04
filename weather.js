@@ -1,3 +1,42 @@
+/* JS comes here */
+function runSpeechRecognition() {
+  // get output div reference
+  const output = document.querySelector(".search input");
+  //   var output = document.getElementById("output");
+  // get action element reference
+  var action = document.getElementById("action");
+  // new speech recognition object
+  var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+  var recognition = new SpeechRecognition();
+
+  // This runs when the speech recognition service starts
+  recognition.onstart = function () {
+    action.innerHTML = "<small>listening, please speak...</small>";
+  };
+
+  recognition.onspeechend = function () {
+    action.innerHTML = "<small>stopped listening, hope you are done...</small>";
+    recognition.stop();
+  };
+
+  // This runs when the speech recognition service returns result
+  recognition.onresult = function (event) {
+    var transcript = event.results[0][0].transcript;
+    var confidence = event.results[0][0].confidence;
+    output.innerHTML =
+      "<b>Text:</b> " +
+      transcript +
+      "<br/> <b>Confidence:</b> " +
+      confidence * 100 +
+      "%";
+    // output.classList.remove("hide");
+  };
+
+  // start recognition
+  action.innerHTML = "Tap to speak";
+  recognition.start();
+}
+
 const apiKey = "12220ce0f0939550cff1d4f23c0d3ea9";
 const apiUrl =
   "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
